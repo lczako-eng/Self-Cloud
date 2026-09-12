@@ -21,5 +21,15 @@
 - Open for the laptop session: `SELF_CLOUD_CONTRACT.md` answering addenda §A2; re-home the
   grant service from `connector/selfcloud.py`.
 
+## 2026-09-12 — Owner decisions + review of the local-AI handoff (remote Claude session)
+- **Owner decided:** repos stay **separate** (Self-Cloud / JEFFEREY / website) — the 09-09 open
+  task "repo consolidation" is withdrawn. Patent 3,301,233 is **deferred by the owner**, not a
+  priority now; trademarks remain the live IP. Addenda ⚑1 and ⚑3 closed accordingly.
+- Read `SESSION_HANDOFF_2026-09-12_LOCAL_AI_AND_PRIVATE_NETWORK.md`,
+  `DIGITAL_CONSCIENCE_ARCHITECTURE.md` and `CONSTITUTION_TEMPLATE.md`; ran a seven-lens
+  adversarial review of the local-AI/private-network direction (feasibility, security, canon
+  contradictions, gaps, recycled storage, market, JEFFEREY impact). Findings summarised to the
+  owner; anything he accepts lands as a further addendum, not as edits to CANON.
+
 ## <next> — Codex
 - (your entry here)

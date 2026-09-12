@@ -79,14 +79,17 @@ voice). Only while Self-Cloud is powered; nothing runs in the dark.
 
 ## B. `⚑` Flags for the owner (not changes — decisions only you can make)
 
-1. **⚑ The patent may already be lost — check today.** CANON §8 records a
-   CIPO notice that the *description* document was missing and the
-   application is "deemed never to have been filed" unless cured by
-   **2026-04-27**. That date is four and a half months gone. If it was cured,
-   record the cure date in CANON §8. If it was not, "patent pending" must stop
-   being said anywhere (the public orb section on jeffereyai.com currently
-   says it) and counsel should advise on refiling. This is the single most
-   time-sensitive item in the whole portfolio.
+1. **~~⚑~~ Patent — OWNER DECISION 2026-09-12: deferred, not a priority now.**
+   CANON §8 records a CIPO notice that the *description* document was missing
+   from application 3,301,233, with the application deemed never filed unless
+   cured by **2026-04-27** (now passed). The owner has decided not to pursue
+   this at present. Recorded as his call; no further action taken.
+   **One consequence still open for him:** jeffereyai.com's orb section
+   publicly states "Emotional-state interface — patent pending". If the
+   application lapsed, that public claim is no longer accurate and should be
+   changed (a one-line edit, e.g. to "Emotional-state interface — original
+   design, 2025") whenever he says the word. The three trademarks
+   (2454959 / 2454960 / 2454961) are unaffected and remain the live IP.
 
 2. **⚑ CANON §8 is candid IP-weakness analysis sitting in a PUBLIC repo.**
    `AGENTS.md` rule 4 says the candid audit lives in the *private* workspace
@@ -96,12 +99,14 @@ voice). Only while Self-Cloud is powered; nothing runs in the dark.
    are not. Owner's call: move §8's second half to the private repo, keeping
    only the filing index public.
 
-3. **⚑ "Repo consolidation" vs "two products, two repos."** The session handoff
-   lists folding all three repos into this one as open work. The owner's
-   direction on 2026-09-09 was explicit: *"keep Jefferey and Self-Cloud — they're
-   not the same thing; they have two different repos."* Recommend: keep two
-   product repos (Self-Cloud, JEFFEREY) and the website; consolidate only the
-   scattered *concept* PDFs into this repo. Owner decides.
+3. **~~⚑~~ Repos — OWNER DECISION 2026-09-12: SETTLED, keep them separate.**
+   *"Keep it separate as I've always said."* The 2026-09-09 handoff's open
+   task "fold the three scattered repos into this one" is therefore
+   **withdrawn**. Standing structure: `Self-Cloud` (this repo — the platform),
+   `jeffrey-local-butler-ai` (JEFFEREY — the agent/connector), and
+   `Jeffrey-AI-Butler` (the website). Only the scattered *concept PDFs* may be
+   consolidated here. The 2026-09-12 handoff independently reaffirms this
+   ("Do not collapse Jeffrey into Self-Cloud").
 
 4. **⚑ `claude-opus-5` is a real, current model ID, not a placeholder.** CANON
    §7 and §9 mark it as aspirational "no such model at knowledge cutoff" —
