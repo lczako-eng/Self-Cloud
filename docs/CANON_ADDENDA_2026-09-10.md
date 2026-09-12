@@ -75,6 +75,41 @@ coming, what he noticed, what needs a decision, what he did (`daily_brief`
 exists; this is its delivery by habit — later spoken, in the owner's own
 voice). Only while Self-Cloud is powered; nothing runs in the dark.
 
+### A5. The box runs the house, and speaks in the owner's voice (owner direction, 2026-09-12)
+
+> *"Let's bring the local [LLM], and then this product to your house. So a hard
+> drive that runs your house. But I want it to be you as the AI — you have the
+> option. It could be your voice, your accent, your memories. Unlike Google."*
+
+Recorded in full, with feasibility, in
+`jeffrey-local-butler-ai/docs/FOUNDER_DIRECTIONS.md` §4. Three parts that belong
+to this side:
+
+- **The local model tiering.** The 09-12 handoff's nine local-AI jobs should be
+  restated as three tiers with the mechanism named: **deterministic** (indexing,
+  exact dedup, near-dup pHash, timeline), **small-model** (semantic search,
+  classification, OCR, conscience retrieval — embeddings, CPU-fine), **LLM**
+  (summarization, Q&A, reasoning). Build A and B before buying hardware for C.
+  Open weights are independence only if **the weights are archived on the
+  drive**; note also that the *embedding* model is not replaceable, since
+  swapping it invalidates the whole index.
+- **The home-hub layer.** The box is already always-on, on the home network, and
+  trusted — that is a home hub. Home Assistant is the obvious substrate (open,
+  local-only, same hardware class, Matter/Zigbee/Z-Wave/Thread), so this is an
+  integration rather than an invention, and it turns the box from a purchase
+  into a fixture. **Hard rule, or it breaks the kill switch:** the house must
+  keep working when the box is off — local devices keep local control; what
+  stops is the intelligence (routines, voice, automations). "The box is asleep"
+  must never mean "the lights don't turn on." That graceful degradation is the
+  genuinely hard engineering and nobody in this market ships it.
+- **The owner's own voice, by option.** Extends `FOUNDER_DIRECTIONS.md` §1 and
+  its five safeguards with two more that only apply once there is a speaker in a
+  room: **(6)** a speaker is a room, not a person — anything said aloud in a
+  shared space is a disclosure and the rules layer applies, defaulting to
+  silence when someone unrecognised is present; **(7)** the voice never answers
+  a phone call or a door intercom, because a cloned voice a stranger can reach
+  is the exact instrument of the scam this product exists to stop.
+
 ---
 
 ## B. `⚑` Flags for the owner (not changes — decisions only you can make)

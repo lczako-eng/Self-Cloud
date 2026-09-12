@@ -31,5 +31,26 @@
   contradictions, gaps, recycled storage, market, JEFFEREY impact). Findings summarised to the
   owner; anything he accepts lands as a further addendum, not as edits to CANON.
 
+## 2026-09-12 (later) — Review filed + new owner direction (remote Claude session)
+- Filed `docs/REVIEW_OF_2026-09-12_HANDOFF.md` on branch `claude/canon-addenda`: the
+  seven-lens review written up. Headline items for the laptop session — the external SSD
+  holding ~240 GB of the family's photos is **unencrypted** (fix first); the two trust zones
+  are advisory (nothing in the connector calls `check_access` internally, and visibility is a
+  model-supplied argument); the gatekeeper/Rosetta layer has no code in either repo;
+  `constitution/` is injected into every session and its §9 is an index of the owner's
+  secrets; `conscience.py` does a non-atomic whole-file write that a kill-switch mid-write
+  destroys; and the federation design should reuse restic/kopia/SnapRAID rather than invent a
+  pooling filesystem. Positioning: five of the six clauses in the category claim are occupied
+  — the uncontested one is owner-ratified, evidence-linked memory governance, and it's in the
+  wrong document.
+- **New owner direction (2026-09-12):** the local model on the box, *the box runs the house*
+  (home-hub layer), and the AI speaking in the owner's own voice and accent — by option.
+  Recorded in the owner's words in `jeffrey-local-butler-ai/docs/FOUNDER_DIRECTIONS.md` §4,
+  with the hard rule that **the house must keep working when the box is off** (local devices
+  keep local control; only the intelligence stops), and two added voice safeguards: a speaker
+  is a room, not a person; and the cloned voice never answers a phone or door intercom.
+- Open for the laptop session: `SELF_CLOUD_CONTRACT.md`; re-home the grant service; the six
+  items in §6 of the review, none of which is a document.
+
 ## <next> — Codex
 - (your entry here)
