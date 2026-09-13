@@ -52,5 +52,32 @@
 - Open for the laptop session: `SELF_CLOUD_CONTRACT.md`; re-home the grant service; the six
   items in §6 of the review, none of which is a document.
 
+## 2026-09-13 — Four review items acted on (remote Claude session)
+- **Owner said "do it" to the four-item shortlist in §6 of the review.** Three are
+  code and are done in `jeffrey-local-butler-ai` (branch
+  `claude/substantiation-discussion-8dmu3c`), each with tests in
+  `connector/jefferey_chat.py --selftest`:
+  1. **The door is structural** — new `connector/access.py`. Client identity is
+     bound once per process from `JEFFEREY_CLIENT` and **defaults to the narrow
+     key**; every data tool on the MCP and HTTP surfaces carries `@gate(scope)`;
+     `who_am_i`/`tell_story` lost their audience parameter entirely (the ceiling
+     comes from the key); widening authority needs `JEFFEREY_OWNER_CONSOLE=1`
+     while narrowing never does; the HTTP surface now maps token → client so
+     per-client keys exist on that path.
+  2. **The conscience survives a power cut** — atomic fsynced writes under an
+     exclusive lock, 20 snapshots kept, a stale writer refused rather than
+     clobbering, and an unreadable store recovers from history or refuses to
+     start instead of silently becoming empty.
+  3. **Local AI proved cheaply** — `tools/photo_index.py`: content-addressed
+     (SHA-256, shared with the dedup work), resumable, unit vectors in SQLite,
+     cosine search, weights archived inside the index directory, and a refusal
+     if the embedding model does not match the index. `selftest` proves the
+     pipeline offline; search *quality* needs one run with real weights on a
+     machine that can reach them once (this container cannot).
+- **Item 1 is physical and belongs to the laptop:** `docs/ENCRYPT_THE_DRIVE.md`
+  is the runbook. The external SSD holding ~240 GB of the family's photos is
+  still plaintext. It is the highest-probability harm in the portfolio and it is
+  an afternoon of work with no code. Do it before the next architecture document.
+
 ## <next> — Codex
 - (your entry here)
