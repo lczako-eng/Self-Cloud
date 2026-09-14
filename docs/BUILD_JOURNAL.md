@@ -79,5 +79,64 @@
   still plaintext. It is the highest-probability harm in the portfolio and it is
   an afternoon of work with no code. Do it before the next architecture document.
 
+## 2026-09-14 — Claude (with Laszlo)
+
+**Connector v0 built and verified on real hardware.** Python, stdlib-only: drives-as-nodes registry,
+sovereign SQLite catalog (mirrored locally so unplugged drives stay searchable), and an audited
+read-only MCP-over-stdio door with an offline switch. On a real 476 GB node: 58/58 tests green,
+drive metadata fingerprint identical across 84,020 entries (only `.selfcloud/` created), 2,545 files
+indexed in 8.18 s, re-index idempotent in 0.15 s, full door session + offline refusals audited.
+
+**Curator v0 (Swift/Vision) partially built** — Contracts / ImageLoading / Classify / DocDetect
+compile; FeaturePrint and Report/main still to write. Vision feature-print rev 2 thresholds measured
+from real photos (0.30 strict / 0.55 loose). `Undated/` is mostly video, so triage must cover video.
+
+**Digital Conscience architecture decided** (`docs/DIGITAL_CONSCIENCE_ARCHITECTURE.md`): three tiers —
+Record (immutable evidence) / Understanding (AI-proposed, owner-accepted, evidence-linked) /
+Constitution (owner-authored, always loaded). Plain text on the node drive, not a PDF.
+
+**Code is held in the private workspace repo for now, pending a security pass.** Adversarial audits
+found defects that must be closed before the connector is published; details and fixes live in
+`HANDOVER.md` there. Engineering handover for other agents: `Self-Cloud-Workspace/HANDOVER.md`.
+
+**Process note:** each build passed its own tests *and still had real holes* that only adversarial
+agents found. Adversarial verification stays mandatory before anything ships.
+
+**Ops note:** never keep a working copy in `/private/tmp` — macOS's temp reaper destroyed the `.git`
+directories there while source was uncommitted. Commit early; work from a durable path.
+
+## 2026-09-14 (remote session) — Handover published; the seam identified
+- Read `Self-Cloud-Workspace/HANDOVER.md`. **Correcting the record:** earlier entries from
+  this side said Self-Cloud had no code. It does — Connector v0, stdlib-only, 58/58 tests,
+  verified on the real 476 GB node with 84,020 entries fingerprint-identical before and
+  after. That is the strongest single piece of evidence in the portfolio.
+- **Published the matching handover for the other half:**
+  `jeffrey-local-butler-ai/HANDOVER.md` (branch `claude/substantiation-discussion-8dmu3c`).
+  It carries the full bill of everything outstanding, each item assigned to
+  Owner / Self-Cloud / JEFFEREY.
+- **⚑ THE SEAM — needs the owner's decision.** Both sides independently built a filesystem
+  walker, a SQLite catalog and an MCP server. Proposed: **the connector owns storage**
+  (what exists, which drive, is it online) because it is hardened and proven on real
+  hardware; **JEFFEREY owns meaning** (EXIF, offline geocoding, CLIP, the recall parser,
+  transcription) **and the surfaces**. JEFFEREY's walker retires and reads the connector's
+  catalog instead. Two MCP servers is correct and they must not be merged — theirs is the
+  storage door, JEFFEREY's is the agent surface, exactly as CANON's two-product split says.
+- **The same rule, found twice independently:** their `mirrors/` (an unplugged drive stays
+  searchable) and JEFFEREY's `missing_since` (an absent file is marked, never deleted).
+  Theirs is the more complete implementation; adopt theirs.
+- **Asks of the Self-Cloud agent** (detail in §5 of that handover): fix HANDOVER §5.1 and
+  §5.2 first, since anything reading drives inherits those holes; expose the catalog to
+  JEFFEREY (a door tool, or a richer `search`/`stat` return); say whether `selfcloud.py`
+  should be re-homed and in what shape; and settle whether rule 6.1 ("no third-party
+  packages") is absolute or scoped to the sovereignty path — CLIP, whisper and llama.cpp
+  are all outside stdlib, including the local models §2.2 requires.
+- **Offered to their side:** `tools/recall.py` (a sentence → time + place + meaning, pure
+  stdlib, no model), `tools/disc_archive.py` (verbatim ripping that survives damaged
+  media), and the shape of `connector/access.py`.
+- **Honest disclosure, per their rule 6.4:** nothing on the JEFFEREY side has been
+  adversarially audited. Its tests prove it does what was intended — the exact trap their
+  handover describes. §7 of that handover names the five places to attack first. Until
+  that audit runs, treat JEFFEREY as they treat `connector/`: works, not shippable.
+
 ## <next> — Codex
 - (your entry here)
