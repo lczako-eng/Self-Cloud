@@ -138,5 +138,24 @@ directories there while source was uncommitted. Commit early; work from a durabl
   handover describes. §7 of that handover names the five places to attack first. Until
   that audit runs, treat JEFFEREY as they treat `connector/`: works, not shippable.
 
+## 2026-09-16 (remote session) — The drive is the product; handover for the Self-Cloud agent
+- **Owner:** *"We got the hard drive ready… what kind of program do we have to do through
+  this hard drive?"* Also: his own voice instead of his mother's discs; and "ask me about
+  these pictures from Afghanistan so it remembers permanently."
+- **Filed `docs/HANDOVER_FROM_JEFFEREY.md`** — the part of the JEFFEREY handover the laptop
+  agent must act on, plus the **on-drive layout both halves now share**: your `.selfcloud/`
+  top level untouched, JEFFEREY under `.selfcloud/jefferey/`, a marker `selfcloud.json`
+  (or your `node.json` — **your decision**, §1), `originals/`, `library/`, an owner-facing
+  `Self-Cloud/` folder with a launcher that binds every tool to that drive on any Mac, and
+  the cloud logo as the Finder icon.
+- Built on the JEFFEREY side since the last entry, all tested: adversarial audit (48 raised,
+  17 survived, all 5 HIGH fixed with regression tests); `home.py` (every tool asks one place
+  where the life lives — drive if present, home folder if not); `provision_drive.py`;
+  voice enrolment (consent take first, TTY-only, real deletion, no network imports);
+  `reminisce.py` (clusters the photo index into moments, asks about the biggest untold one
+  from facts alone, keeps the story verbatim pinned to the photos, "rather not" is final).
+- **Asks of the laptop agent, in order:** fix §5.1/§5.2; expose the catalog so JEFFEREY's
+  walker can retire; decide the marker; scope rule 6.1; shape for re-homing `selfcloud.py`.
+
 ## <next> — Codex
 - (your entry here)
