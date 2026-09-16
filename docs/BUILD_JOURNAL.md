@@ -185,5 +185,35 @@ directories there while source was uncommitted. Commit early; work from a durabl
   `HANDOVER_FROM_JEFFEREY.md` §3 stand, in that order. One note added there: the
   egress log lives under `.selfcloud/jefferey/`, your namespace untouched.
 
+## 2026-09-16 (owner at the keyboard) — The drive is provisioned; encryption identified
+- **The owner ran it himself.** Cloned the JEFFEREY repo, ran `Make this drive a
+  Self-Cloud.command` against the real SSD. Layout created without touching a
+  file, marker written, logo keyed onto the volume icon, and the volume
+  **renamed `Self Cloud` → `Self-Cloud`**. Every path in this repo that named the
+  old volume has been updated; the 09-09 history keeps the old name.
+- **Both halves now share the drive, confirmed on real hardware.** The
+  provisioner reported `.selfcloud/ (already there)` — the laptop connector's
+  own namespace, untouched — and created `.selfcloud/jefferey/` beside it. The
+  layout in `HANDOVER_FROM_JEFFEREY.md` §1 is no longer a proposal.
+- **The drive is `Case-sensitive Journaled HFS+`, not encrypted** (no
+  `FileVault:`/`Encrypted:` line at all, which is how a non-CoreStorage volume
+  presents). So §2a of `ENCRYPT_THE_DRIVE.md` applies, in place, keeping every
+  file. **Owner is gated on confirming a second copy before starting.**
+- **Two errors found in that runbook and fixed:** it offered
+  `diskutil apfs encryptVolume` as the command-line equivalent for *both* the
+  APFS and the HFS+ row, and `diskutil apfs` fails on HFS+ — the HFS+ path is
+  `diskutil coreStorage convert`. It also never said that absence of those two
+  lines *is* the answer. Both corrected, plus a note that erasing would destroy
+  the provisioning and mint a new drive id.
+- **Deferred deliberately:** HFS+ → APFS. Better for an SSD and its snapshots
+  would give the conscience real point-in-time recovery, but it is a separate
+  operation with its own failure mode, and CoreStorage-encrypting first means
+  decrypting to convert later. Encryption is the urgent hole; format is not.
+- **Also fixed on the JEFFEREY side** (`f4663c2`): the icon keying called
+  `Image.getdata`, which Pillow removes in 14 — it warned at the owner mid-run
+  and would have broken the icon outright on a future Mac; and the closing line
+  printed the *pre-rename* mount point, telling him to open a folder that no
+  longer existed.
+
 ## <next> — Codex
 - (your entry here)

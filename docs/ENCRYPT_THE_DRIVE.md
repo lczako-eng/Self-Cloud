@@ -1,10 +1,38 @@
 # Encrypt the Self-Cloud drive — do this before anything else is built
 
-**Status: NOT DONE as of 2026-09-13. This is the highest-probability way this
+**Status: NOT DONE as of 2026-09-16. This is the highest-probability way this
 project hurts its owner in the next twelve months.**
 
+> **2026-09-16 — the drive has been identified, so most of §1 is now settled.**
+> It was provisioned as a Self-Cloud drive that day and **renamed from
+> `Self Cloud` to `Self-Cloud`**; every path below uses the new name. `diskutil
+> info` on the owner's Mac reported:
+>
+> ```
+> File System Personality:   Case-sensitive Journaled HFS+
+> ```
+>
+> with **no `FileVault:` or `Encrypted:` line at all**, which is how a plain
+> HFS+ volume that is not CoreStorage presents. So: **not encrypted, and
+> encryptable in place.** Take **§2a**. §2b (erase and recopy) does not apply —
+> the drive was never exFAT.
+>
+> **Case-sensitive** is unusual on a Mac but is the better of the two here: it
+> cannot silently collide two files whose names differ only in case. Keep it.
+> Note it if anything is ever copied *from* this drive to a case-insensitive
+> one, where such a pair would collide on arrival.
+>
+> **HFS+ versus APFS — a decision deliberately deferred.** APFS is the better
+> format for an SSD, and its snapshots would give the conscience store real
+> point-in-time recovery. But converting the format is a separate operation
+> with its own failure mode, and once this volume is CoreStorage-encrypted,
+> converting later means decrypting first. Encryption is the urgent hole;
+> format is not. **Encrypt now as HFS+; revisit APFS as its own decision, with
+> a verified second copy in hand.** Record that decision here when it is made.
+
 `SESSION_HANDOFF_2026-09-09.md` §5 records ~64.5k files / ~240 GB copied to an
-external SSD named "Self Cloud". `CANON.md` §7 lists encryption-at-rest under
+external SSD named "Self Cloud" (renamed `Self-Cloud` on 2026-09-16).
+`CANON.md` §7 lists encryption-at-rest under
 CONCEPT ONLY. So the sovereign backup that exists in the world today is a
 **plaintext, portable, complete photo archive of a real family**. It leaks by
 being picked up — in a car, at a border crossing (a threat CANON §3 names by
@@ -27,8 +55,8 @@ begin. Do not cancel iCloud until §5 passes.
 ## 1. Find out what the drive actually is
 
 ```sh
-diskutil list                       # find the disk identifier, e.g. disk4s2
-diskutil info /Volumes/"Self Cloud" # look at: File System Personality, Encrypted
+diskutil list                   # find the disk identifier, e.g. disk4s2
+diskutil info /Volumes/Self-Cloud | grep -i "personality\|encrypted\|filevault"
 ```
 
 Three cases:
@@ -36,8 +64,11 @@ Three cases:
 | What it says | What you do |
 |---|---|
 | **APFS**, Encrypted: No | Step 2a — converts in place, keeps every file |
-| **Mac OS Extended (Journaled)** | Step 2a also works (adds CoreStorage encryption) |
+| **Mac OS Extended / Journaled HFS+** ← *this drive* | Step 2a also works, via CoreStorage. **The command differs — see 2a** |
 | **exFAT** or **FAT32** | Step 2b — these cannot be encrypted in place. Requires an erase, so the second copy is mandatory |
+
+If neither an `Encrypted:` nor a `FileVault:` line comes back at all, that is a
+plain volume with no CoreStorage: **not encrypted.** Absence is the answer.
 
 exFAT is the common case for a drive that has ever been plugged into a
 Windows machine or bought pre-formatted, and it is also the format that will
@@ -46,27 +77,48 @@ timestamps). If it is exFAT, fixing it now solves two problems at once.
 
 ## 2a. In-place encryption (APFS or HFS+)
 
-In Finder: right-click the drive → **Encrypt "Self Cloud"…**, set the
-passphrase and hint, and let it run. It converts in the background while the
-drive stays usable; leave it plugged in until `diskutil info` reports
-`Encrypted: Yes` and conversion is complete.
+**The Finder route is the same for both formats and is the one to use.**
+Right-click the drive → **Encrypt "Self-Cloud"…**, set the passphrase and
+hint, and let it run. It converts in the background while the drive stays
+usable; leave it plugged in until conversion is complete. On ~240 GB expect
+hours, not minutes.
 
-Command line equivalent:
+**The command-line equivalent is NOT the same for both**, and an earlier
+version of this file got that wrong by offering the APFS command for both
+rows. `diskutil apfs` subcommands fail on an HFS+ volume.
 
 ```sh
-diskutil apfs encryptVolume /Volumes/"Self Cloud" -user disk
+# APFS volumes:
+diskutil apfs encryptVolume /Volumes/Self-Cloud -user disk
+
+# HFS+ volumes (this drive) — CoreStorage, and it prompts for the passphrase:
+diskutil coreStorage convert /Volumes/Self-Cloud -stdinpassphrase
+```
+
+Either way, watch it finish rather than assuming:
+
+```sh
+diskutil info /Volumes/Self-Cloud | grep -i "filevault\|encrypt\|conversion"
+diskutil coreStorage list            # HFS+: shows conversion progress %
 ```
 
 ## 2b. Erase and recopy (exFAT/FAT32 only — needs the second copy first)
 
+Not applicable to this drive; kept for a future one.
+
 ```sh
 # 1. Confirm the second copy exists and its checksums verify. Do not skip.
 # 2. Erase to encrypted APFS:
-diskutil eraseDisk APFS "Self Cloud" GPT disk4        # <- your identifier
-diskutil apfs encryptVolume /Volumes/"Self Cloud" -user disk
+diskutil eraseDisk APFS "Self-Cloud" GPT disk4        # <- your identifier
+diskutil apfs encryptVolume /Volumes/Self-Cloud -user disk
 # 3. Copy back, preserving metadata, and verify:
-rsync -aH --progress /path/to/second/copy/ /Volumes/"Self Cloud"/
+rsync -aH --progress /path/to/second/copy/ /Volumes/Self-Cloud/
 ```
+
+**If you erase, you also erase the Self-Cloud provisioning** — the marker,
+`.selfcloud/`, the folders and the icon. Re-run `Make this drive a
+Self-Cloud.command` from the JEFFEREY repo afterwards. It will mint a **new
+drive id**, so any node record keyed to the old one needs updating.
 
 ## 3. The passphrase — this is where people actually lose data
 
@@ -96,8 +148,9 @@ Not done until all four pass:
    the "stolen bag" threat is only half-solved: uncheck "Remember this
    password in my keychain", or accept that the protection is against theft of
    the drive alone, not of the bag containing both.
-2. `diskutil info /Volumes/"Self Cloud"` reports `Encrypted: Yes` and
-   `FileVault: Yes`.
+2. `diskutil info /Volumes/Self-Cloud` reports `FileVault: Yes` (and, on APFS,
+   `Encrypted: Yes`). On HFS+, `diskutil coreStorage list` must show
+   conversion **complete**, not a percentage.
 3. Pull a random hundred files back off it and compare checksums against the
    source — the same verification the 09-09 copy already passed.
 4. Record the date here and in `BUILD_JOURNAL.md`, and flip encryption-at-rest
