@@ -157,5 +157,33 @@ directories there while source was uncommitted. Commit early; work from a durabl
 - **Asks of the laptop agent, in order:** fix §5.1/§5.2; expose the catalog so JEFFEREY's
   walker can retire; decide the marker; scope rule 6.1; shape for re-homing `selfcloud.py`.
 
+## 2026-09-16 (later, remote session) — The egress door; the owner's START_HERE
+- **Owner:** *"Build the egress door — but remember Self-Cloud and JEFFEREY are two
+  different builds."* Confirmed and held to: the door is **JEFFEREY's**, because
+  JEFFEREY is the only half that ever talks to a rented engine. Self-Cloud never
+  leaves the house; its offline switch is its own. No code written on this side.
+- **Built in `jeffrey-local-butler-ai` (branch `claude/substantiation-discussion-8dmu3c`):**
+  `connector/egress.py`. Every tool on the MCP, HTTP and terminal surfaces is
+  registered *through* the door, so a tool with no release entry sends nothing.
+  Per-tool field allowlist (fails closed; redaction was rejected because it fails
+  open). A hard scan — Luhn-checked cards and SINs, SSNs, `password:`, API-key
+  shapes — refuses the whole result and names only the field; the same scan runs
+  on what an engine hands *in*, before the tool runs, so a secret can never be
+  planted in the conscience and then poison every aggregate result. The log is
+  written and fsynced before the send; if it cannot be written, nothing leaves.
+  A `door-shut` file (or `JEFFEREY_OFFLINE=1`) refuses everything. The owner's
+  report: `What left the house.command`, `python connector/egress.py report
+  --full`, and a counts-only `what_left_the_house` tool the engine may call.
+- **Found on the way, fixed:** since the lazy-provisioning change, the HTTP
+  surface only ever provisioned the process-default key, so every per-token
+  client was denied as "never granted". Now the *current* client is provisioned.
+- **Filed `START_HERE.md`** in the JEFFEREY repo: the owner's steps in order —
+  get the code, prepare the drive (`Make this drive a Self-Cloud.command`, then
+  **encrypt it** per `ENCRYPT_THE_DRIVE.md`), put the code on the drive, install,
+  photographs, voice, and *see what left the house*. One double-click each.
+- **Nothing new asked of the laptop agent.** The five asks in
+  `HANDOVER_FROM_JEFFEREY.md` §3 stand, in that order. One note added there: the
+  egress log lives under `.selfcloud/jefferey/`, your namespace untouched.
+
 ## <next> — Codex
 - (your entry here)

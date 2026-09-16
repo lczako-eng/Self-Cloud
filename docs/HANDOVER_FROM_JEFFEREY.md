@@ -93,6 +93,7 @@ All tested, all on the branch above. The full table is in the JEFFEREY
 | `tools/wall.py` — the screen; 128-bit passcode, 5-strike lockout, no paths returned | Serves *my* index today; should serve *your* catalog + my meaning layer |
 | `tools/voice_enrol.py` — owner's voice, consent take first, TTY-only, real deletion | Writes under `.selfcloud/jefferey/voice/` |
 | `connector/reminisce.py` — clusters photos into moments, asks about the biggest untold one from facts only, keeps the story verbatim pinned to the photos | **First feature that needs your catalog and mine to agree** on identity (SHA-256) and on `missing_since` vs your mirrors |
+| **`connector/egress.py` — the egress door (2026-09-16).** Every tool on every JEFFEREY surface is registered *through* it; per-tool field allowlist fails closed; a hard scan refuses cards / SINs / SSNs / passwords / API keys in both directions; the log is fsynced *before* the send; a `door-shut` switch; `What left the house.command` | JEFFEREY is the only half that ever talks to a rented engine, so this door is JEFFEREY's. **Your offline switch stays yours** — two switches, two products. The log lands at `.selfcloud/jefferey/egress.jsonl` on the drive: same privacy as the conscience, same namespace, nothing of yours touched |
 
 ---
 
