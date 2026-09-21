@@ -123,6 +123,18 @@ the single-file case.
 
 ## 5. Owner-only items that block both of us
 
+- **⚑ The drive is being erased to encrypted APFS (2026-09-21).** Read
+  `docs/ENCRYPT_THE_DRIVE.md` §2c. It was a Time Machine destination, which is
+  why macOS offered no Encrypt option, and the owner has now moved the photos
+  to the Mac and dropped that backup — so an erase is cheap and gets the drive
+  onto APFS, which is what it should have been.
+  **What this costs you:** the erase destroys `.selfcloud/` at the top level —
+  your `node.json`, `catalog.db` and `audit.jsonl` for this drive — and the
+  re-provision mints a **new drive id**. Your `mirrors/` should still hold the
+  catalog on the Mac, and re-indexing rebuilds the rest, but **any node record
+  keyed to the old id needs updating**. It is gated behind an explicit
+  acceptance in the runbook rather than done quietly. If you would rather the
+  owner exported something from `.selfcloud/` first, say so now.
 - **Encrypt the external SSD.** Still plaintext. `docs/ENCRYPT_THE_DRIVE.md`.
 - **Run the photo index with real weights** on the Mac — this side's
   container cannot reach them.

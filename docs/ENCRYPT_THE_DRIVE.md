@@ -22,13 +22,52 @@ project hurts its owner in the next twelve months.**
 > Note it if anything is ever copied *from* this drive to a case-insensitive
 > one, where such a pair would collide on arrival.
 >
-> **HFS+ versus APFS — a decision deliberately deferred.** APFS is the better
-> format for an SSD, and its snapshots would give the conscience store real
-> point-in-time recovery. But converting the format is a separate operation
-> with its own failure mode, and once this volume is CoreStorage-encrypted,
-> converting later means decrypting first. Encryption is the urgent hole;
-> format is not. **Encrypt now as HFS+; revisit APFS as its own decision, with
-> a verified second copy in hand.** Record that decision here when it is made.
+> **HFS+ versus APFS — deferred on 09-16, then reversed on 09-21.** See the
+> next block. The 09-16 reasoning was: APFS is better for an SSD and its
+> snapshots would give the conscience real point-in-time recovery, but
+> converting is a separate operation with its own failure mode, and once a
+> volume is CoreStorage-encrypted, converting later means decrypting first.
+> With the drive holding the only copy of the photographs, that risk was not
+> worth taking for a format. **The premise changed.**
+
+> **2026-09-21 — why Finder offered no Encrypt, and the plan that replaces §2a.**
+>
+> The owner right-clicked the drive and there was **no "Encrypt…" item** in the
+> menu. That is not a fault and it is worth writing down, because the runbook
+> sent him to a button that was not there.
+>
+> `diskutil list disk2` settles what it was *not*:
+>
+> ```
+> /dev/disk2 (external, physical):
+>    0:      GUID_partition_scheme      *512.1 GB   disk2
+>    1:                        EFI EFI   209.7 MB   disk2s1
+>    2:                  Apple_HFS Self-Cloud  511.7 GB   disk2s2
+> ```
+>
+> **GUID, journaled HFS+, writable.** Every precondition for CoreStorage
+> encryption is met, so the partition scheme was never the problem.
+>
+> **The cause: the volume is a Time Machine destination.** It carries
+> `Backups.backupdb` and its context menu offers *Back Up Now*. macOS does not
+> offer Finder encryption on a volume Time Machine has claimed; it expects you
+> to encrypt through Time Machine's own settings instead. **Add this to the
+> checks in §1:** if Encrypt is missing from a GUID HFS+ volume, look for
+> `Backups.backupdb` before looking for anything else.
+>
+> **The premise that justified deferring APFS is gone.** On 09-21 the owner
+> moved the photo folders (`Petting Zoo`, `Uncle Bill`, `Zavitz`) onto the Mac
+> and said he no longer wants the Time Machine backup on this drive. So a
+> second copy exists, the drive is nearly empty, and it is about to stop being
+> a backup target. **Decision: erase to APFS (Encrypted) — §2c — rather than
+> CoreStorage-encrypt HFS+ in place.** A near-empty erase costs minutes and
+> buys the format this drive should have had as the product drive.
+>
+> **One drive, one job.** Before this, a single physical drive was the Mac's
+> Time Machine target, the family photo archive, and the Self-Cloud. That is
+> not a second copy of anything — if it dies, the backup dies with the thing it
+> was backing up. Time Machine gets its own cheap drive. This one is the
+> Self-Cloud and nothing else.
 
 `SESSION_HANDOFF_2026-09-09.md` §5 records ~64.5k files / ~240 GB copied to an
 external SSD named "Self Cloud" (renamed `Self-Cloud` on 2026-09-16).
@@ -69,6 +108,22 @@ Three cases:
 
 If neither an `Encrypted:` nor a `FileVault:` line comes back at all, that is a
 plain volume with no CoreStorage: **not encrypted.** Absence is the answer.
+
+**Check the partition scheme separately** — the format line does not carry it,
+and `diskutil list external` is useless on a Mac with Xcode installed because
+dozens of simulator disk images drown the real drive. Name the disk:
+
+```sh
+diskutil list disk2                 # <- the identifier from Device Node
+```
+
+Row 0 must say `GUID_partition_scheme`. `Apple_partition_scheme` or
+`FDisk_partition_scheme` (MBR) cannot take CoreStorage and force §2b.
+
+**If Finder shows no "Encrypt…" item on a volume that passes both checks, it
+is claimed by something.** Look for `Backups.backupdb` and a *Back Up Now*
+entry in the same context menu: macOS hides Finder encryption on a Time
+Machine destination. Release it first (§2c step 1).
 
 exFAT is the common case for a drive that has ever been plugged into a
 Windows machine or bought pre-formatted, and it is also the format that will
@@ -119,6 +174,62 @@ rsync -aH --progress /path/to/second/copy/ /Volumes/Self-Cloud/
 `.selfcloud/`, the folders and the icon. Re-run `Make this drive a
 Self-Cloud.command` from the JEFFEREY repo afterwards. It will mint a **new
 drive id**, so any node record keyed to the old one needs updating.
+
+## 2c. Erase to encrypted APFS — the chosen path for this drive (2026-09-21)
+
+Use this when a second copy exists and the drive is empty enough that an erase
+is cheaper than a conversion. It is the right end state for an SSD: APFS
+snapshots give the conscience store point-in-time recovery, which CoreStorage
+over HFS+ does not.
+
+**Do not start until all three are true.** Each one has bitten somebody.
+
+1. The photographs exist somewhere that is not this drive, and you have
+   *opened a few of them* there. "I moved them" is not verification.
+2. Nothing else on the drive is wanted. `ls -la /Volumes/Self-Cloud` — look at
+   every line, including the dot-directories.
+3. You accept losing `.selfcloud/` at the top level, which is the **Self-Cloud
+   connector's** node record, catalog and audit log for this drive. It is
+   rebuildable by re-indexing and the connector mirrors catalogs on the Mac,
+   but it is the other half's data and its agent should be told.
+
+**Step 1 — release it from Time Machine.** System Settings → General → Time
+Machine → select the drive → **−** → *Forget This Backup Disk*. Confirm:
+
+```sh
+tmutil destinationinfo        # must no longer list this drive
+```
+
+**Step 2 — erase.** Disk Utility, not the command line: the format dropdown
+offers *APFS (Encrypted)* directly, and the CLI needs two steps to get there.
+
+1. Open **Disk Utility**.
+2. **View → Show All Devices.** Without this you cannot set the scheme.
+3. Select the **top-level physical disk** — the `512.1 GB` row named after the
+   manufacturer — **not** the `Self-Cloud` volume indented under it.
+4. **Erase**, then set:
+   - Name: `Self-Cloud`
+   - Format: **APFS (Encrypted)**
+   - Scheme: **GUID Partition Map**
+5. Set the passphrase and hint. **Now read §3 before clicking Erase** — this
+   is the passphrase you cannot lose.
+6. Erase. Minutes, not hours, on an empty drive.
+
+**Step 3 — re-provision.** Double-click `Make this drive a
+Self-Cloud.command` in the JEFFEREY repo. Folders, marker, cloud icon and the
+`Start Self-Cloud.command` launcher come back. **The drive id is new.**
+
+**Step 4 — copy the photographs back** into `library/` on the drive, and
+verify a sample opens from the drive before deleting anything anywhere else.
+
+**Step 5 — verify**, per §5. On APFS the check is simple:
+
+```sh
+diskutil info /Volumes/Self-Cloud | grep -i "filevault\|encrypted\|personality"
+```
+
+Both `Encrypted: Yes` and `FileVault: Yes`. Then eject, unplug, replug: the
+Mac must **ask for the passphrase**.
 
 ## 3. The passphrase — this is where people actually lose data
 

@@ -215,5 +215,35 @@ directories there while source was uncommitted. Commit early; work from a durabl
   printed the *pre-rename* mount point, telling him to open a folder that no
   longer existed.
 
+## 2026-09-21 — Why Finder hid "Encrypt", and the APFS decision reversed
+- **The runbook sent the owner to a button that was not there.** He right-clicked
+  the drive and the context menu had no *Encrypt…* item. `diskutil list disk2`
+  ruled out the usual cause: `GUID_partition_scheme`, journaled HFS+, writable —
+  every CoreStorage precondition met. **The real cause: the volume is a Time
+  Machine destination** (`Backups.backupdb` present, *Back Up Now* in the same
+  menu), and macOS hides Finder encryption on one. Written into §1 as a check:
+  if Encrypt is missing from a GUID HFS+ volume, look for `Backups.backupdb`
+  before anything else.
+- **One drive was doing three jobs** — the Mac's Time Machine target, the family
+  photo archive, and the Self-Cloud. That is not a second copy of anything: if
+  it dies, the backup dies together with what it was backing up. Time Machine
+  gets its own drive; this one is the Self-Cloud and nothing else.
+- **APFS decision reversed, on a changed premise.** 09-16 deferred it because
+  converting a drive holding the sole copy of the photographs was not worth the
+  risk for a format. The owner has since moved the photo folders to the Mac and
+  dropped the Time Machine backup, so a second copy exists and the drive is
+  nearly empty. **New plan, §2c: erase to APFS (Encrypted) rather than
+  CoreStorage-encrypt HFS+ in place.** Minutes on an empty drive, and APFS
+  snapshots give the conscience store point-in-time recovery that CoreStorage
+  over HFS+ cannot.
+- **⚑ For the laptop agent:** the erase destroys `.selfcloud/` at the top level
+  — your `node.json`, `catalog.db` and `audit.jsonl` for this drive — and the
+  re-provision mints a **new drive id**. Rebuildable by re-indexing, and your
+  `mirrors/` should still hold the catalog on the Mac, but any node record keyed
+  to the old id needs updating. Gated in §2c behind an explicit acceptance, not
+  done silently.
+- Also recorded: `diskutil list external` is useless for diagnosis on a Mac with
+  Xcode — ~30 simulator disk images drown the real drive. Name the disk.
+
 ## <next> — Codex
 - (your entry here)
