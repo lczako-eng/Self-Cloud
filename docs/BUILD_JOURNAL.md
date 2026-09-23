@@ -245,5 +245,24 @@ directories there while source was uncommitted. Commit early; work from a durabl
 - Also recorded: `diskutil list external` is useless for diagnosis on a Mac with
   Xcode — ~30 simulator disk images drown the real drive. Name the disk.
 
+## 2026-09-23 — The drive is encrypted
+- **Owner did it himself:** released the drive from Time Machine, erased it in
+  Disk Utility to **APFS (Encrypted)**, GUID, case-sensitive, named `Self-Cloud`.
+  `diskutil info` → `File System Personality: Case-sensitive APFS`,
+  `FileVault: Yes`. The highest-probability harm in the portfolio, first named
+  on 09-12, is closed for the drive.
+- **Proposed as CANON addendum A6**, not written into CANON §7 directly (CANON
+  is the owner's to change). Scoped honestly: it covers the drive when
+  unplugged, not the Mac, not a mounted volume.
+- **Still open:** passphrase prompt on re-plug; checksum sample once the
+  photographs are copied back into `library/`; FileVault on the Mac, which now
+  holds the photos; re-provision (the erase removed marker, folders and icon);
+  software onto the drive; a separate drive for the Mac's Time Machine.
+- **⚑ For the laptop agent:** as flagged on 09-21, `.selfcloud/` is gone — your
+  node record, catalog and audit log for this drive. When it is re-provisioned
+  the drive gets a **new id**. Re-register the node and re-index.
+- Runbook fix: macOS printed `FileVault: Yes` with no `Encrypted:` line; §2c
+  said to expect both. Corrected so the next person does not read a pass as a fail.
+
 ## <next> — Codex
 - (your entry here)

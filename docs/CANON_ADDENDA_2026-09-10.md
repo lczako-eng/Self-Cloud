@@ -110,6 +110,31 @@ to this side:
   a phone call or a door intercom, because a cloned voice a stranger can reach
   is the exact instrument of the scam this product exists to stop.
 
+### A6. Encryption-at-rest is real on the Self-Cloud drive (2026-09-23)
+
+**Proposed change to CANON §7:** move *encryption-at-rest* out of CONCEPT ONLY
+and record it as a dated capability, scoped honestly:
+
+> **Encryption-at-rest (the Self-Cloud drive) — 2026-09-23.** The 512 GB SSD
+> was erased to **APFS (Encrypted)**, GUID scheme, case-sensitive, and
+> re-provisioned. `diskutil info` on the owner's Mac reports
+> `File System Personality: Case-sensitive APFS` and `FileVault: Yes`.
+
+What it covers, and what it does not yet:
+
+- **Covers:** the drive, when unplugged. Lost, stolen, or seized at a border,
+  it reads as noise without the passphrase.
+- **Does not cover the Mac.** The photographs were moved onto the laptop before
+  the erase; FileVault on the Mac itself is still unconfirmed.
+- **Does not cover a mounted drive.** Unlocked on a running Mac, the files are
+  readable; that is what the gates and the kill switch are for.
+- **Two of the four checks in `ENCRYPT_THE_DRIVE.md` §5 are still open:** a
+  passphrase prompt on re-plug (if the key was saved to the keychain, the drive
+  is protected alone but not in a bag with the laptop), and a checksum sample
+  after the photographs are copied back.
+
+The owner merges this into CANON when satisfied; until then it stands here.
+
 ---
 
 ## B. `⚑` Flags for the owner (not changes — decisions only you can make)

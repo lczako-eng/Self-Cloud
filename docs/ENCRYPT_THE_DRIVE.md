@@ -1,7 +1,14 @@
 # Encrypt the Self-Cloud drive — do this before anything else is built
 
-**Status: NOT DONE as of 2026-09-16. This is the highest-probability way this
-project hurts its owner in the next twelve months.**
+**Status: ENCRYPTED 2026-09-23 — two verification checks still open.**
+Erased to APFS (Encrypted) per §2c; `diskutil info` reports
+`Case-sensitive APFS` and `FileVault: Yes`. Still open from §5: the passphrase
+prompt on re-plug (§5.1) and the checksum sample once the photographs are back
+on the drive (§5.3). The Mac's own FileVault (§4) is unconfirmed. Recorded as
+CANON addendum A6.
+
+*(History: NOT DONE as of 2026-09-16, when this was the highest-probability
+way the project could hurt its owner.)*
 
 > **2026-09-16 — the drive has been identified, so most of §1 is now settled.**
 > It was provisioned as a Self-Cloud drive that day and **renamed from
@@ -228,8 +235,10 @@ verify a sample opens from the drive before deleting anything anywhere else.
 diskutil info /Volumes/Self-Cloud | grep -i "filevault\|encrypted\|personality"
 ```
 
-Both `Encrypted: Yes` and `FileVault: Yes`. Then eject, unplug, replug: the
-Mac must **ask for the passphrase**.
+`FileVault: Yes` is the line that matters on APFS. Current macOS may print it
+**without** an `Encrypted:` line (that is exactly what the owner's Mac showed on
+2026-09-23), so do not treat a missing `Encrypted:` as a failure here. Then
+eject, unplug, replug: the Mac must **ask for the passphrase**.
 
 ## 3. The passphrase — this is where people actually lose data
 
