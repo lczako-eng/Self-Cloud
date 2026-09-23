@@ -264,5 +264,28 @@ directories there while source was uncommitted. Commit early; work from a durabl
 - Runbook fix: macOS printed `FileVault: Yes` with no `Encrypted:` line; §2c
   said to expect both. Corrected so the next person does not read a pass as a fail.
 
+## 2026-09-23 (later) — Owner asks: redo the 09-09 photo job onto the new drive
+- **⚑ For the laptop agent — this one is yours.** The owner asked for the 09-09
+  pipeline (§5 of `SESSION_HANDOFF_2026-09-09.md`) to be run again, this time
+  onto the freshly encrypted drive. It is storage work, so it sits on the
+  Self-Cloud side of the seam, and the code for it exists only on the laptop.
+  The remote JEFFEREY session cannot reach the Mac or iCloud and did not
+  rebuild it.
+- **What changed since 09-09:** the drive was erased to APFS (Encrypted) and
+  re-provisioned on 09-23. It is now at `/Volumes/Self-Cloud`, with `originals/`,
+  `library/`, `Self-Cloud/` and `.selfcloud/` (marker `selfcloud.json`, new id).
+  Your `node.json`, `catalog.db` and `audit.jsonl` are gone. The old
+  `Library-Clean/` and `Duplicates/` folders were no longer on the drive by
+  09-21. The iCloud source library was never pruned, per the 09-09 rule, so it
+  is still the complete source.
+- **Where the output should go, proposed:** unique originals by Year/Month
+  under `library/`; the redundant copies in their own folder beside it, kept,
+  not deleted; SHA-256 verify on both sides of every copy, as before. Then
+  re-register the node and re-index so the catalog exists again.
+- **Also asked by the owner, not yet answered:** he expected this to run on
+  **Hermes / OpenClaw**. Neither name appears anywhere in either repo or in the
+  remote session's record. If a local agent is already running on the Mac,
+  record it here: which model, which runtime, and whether it loads MCP servers.
+
 ## <next> — Codex
 - (your entry here)
