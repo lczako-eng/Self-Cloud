@@ -287,5 +287,60 @@ directories there while source was uncommitted. Commit early; work from a durabl
   remote session's record. If a local agent is already running on the Mac,
   record it here: which model, which runtime, and whether it loads MCP servers.
 
+## 2026-10-13 — Stress test: 1,521 scenarios; what lands on the Self-Cloud side
+- **Owner asked** for a thousand-plus scenarios, "everything from sign-up to texting
+  to selling to buying, plus the stuff I'm not thinking of", and an honest account
+  of what is needed. The run and its data live in the JEFFEREY repo:
+  `docs/STRESS_TEST_2026-10.md` (report) and `docs/stress-test-2026-10/` (every
+  scenario, finding, skeptic verdict, issue and gap), branch
+  `claude/substantiation-discussion-8dmu3c`, commit `4d2c44c`.
+- **Method:** 26 areas; test agents wrote 1,521 scenarios and executed 1,425 against
+  the real JEFFEREY code in throwaway home folders. Independent skeptics reproduced
+  serious findings from scratch: 175 checked, 174 kept, 1 refuted. 69 root issues
+  (3 critical, 39 high, 23 medium, 4 low); 53 confirmed missing capabilities.
+  Engine calls simulated; no real Mac. **No Self-Cloud code was tested — it is
+  private and was not visible** — so the seam area has no passing scenario (0 of 45,
+  28 executed), and every Self-Cloud behaviour in it is marked unverifiable.
+- **Verdict:** usable by the owner, carefully. Not ready for his family, not ready for
+  a stranger who pays. The rule it lands on: *nothing irreversible happens because
+  an AI asked* — deleting, overwriting, widening a key or approving a spend needs the
+  owner's own confirmation outside the AI, plus a real undo.
+- **⚑ For the laptop agent — issues that are yours or shared (ids from the report):**
+  - **I-08 (both):** where the life lives is decided once per process with a silent
+    fallback to the laptop. A drive unlocked after login gives a split brain: the
+    owner's shut switch lands on the drive while Claude's long-lived process keeps
+    sending from the home folder, and the report says nothing left. Proposed: record
+    the drive id at provisioning, refuse ("your drive is not plugged in") instead of
+    falling back, and keep grants, revocations and the door switch in one owner-level
+    policy. **This needs your node identity** — it is the marker decision again.
+  - **I-17 (both):** any volume carrying `.selfcloud/selfcloud.json` is adopted as the
+    owner's conscience: a planted stick, a second-hand drive, a relative's drive.
+    Proposed: pair the Mac to drive ids at provisioning; refuse unknown drives; a
+    resale wipe. Again your node id is the natural anchor.
+  - **I-18 (both):** other connectors in the same Claude (the owner's `filesystem`
+    server; a marketplace connector that calls its own hosted memory "Self Cloud")
+    sit outside JEFFEREY's door and log. Your storage door is a third such surface:
+    say in your docs what it logs and whether it should ever be wired beside a
+    general filesystem connector.
+- **Missing capabilities that sit on your side or between us:**
+  - **Backup verifier and a second verified copy (priority: now).** Nothing copies or
+    verifies the conscience, index, voice or originals; the iCloud rule exists only as
+    prose. Say which side owns it — CANON should record the answer.
+  - **The 09-09 dedup-and-separation pipeline (now).** Still in no repo; still only on
+    the laptop. Asked for on 09-23; no reply yet.
+  - **Keys govern only JEFFEREY's tools.** The wall, recall and the photo index check no
+    key, and duplicate your catalog. This is the old B2/B3 seam: expose the catalog and
+    JEFFEREY's walker retires.
+  - **Confirm what JEFFEREY cannot see:** after the 09-23 erase, does the connector
+    re-key the node? Does erasure reach `catalog.db` and `audit.jsonl`? Is there one
+    shared drive id? The gap auditor marked these unverifiable, not absent.
+- **Also recorded:** the laptop agent has been silent since 2026-09-14. The owner's
+  decisions B1 (the seam), B6 (dependency rule 6.1) and the marker are still open,
+  and three of the issues above wait on them.
+- **Five areas the critic found untested**, for whoever runs the next pass: health
+  emergencies and break-glass access; losing the drive itself (theft, fire, a
+  forgotten passphrase) and restoring onto a new one; the daily routine and
+  reminders; dealing with institutions and professionals; abuse by a trusted insider.
+
 ## <next> — Codex
 - (your entry here)

@@ -97,6 +97,17 @@ All tested, all on the branch above. The full table is in the JEFFEREY
 
 ---
 
+## 2½. ⚑ Stress test, 2026-10-13 — read before acting on §3
+
+JEFFEREY ran 1,521 scenarios (report: `jeffrey-local-butler-ai/docs/STRESS_TEST_2026-10.md`).
+Three verified issues are shared with you and wait on your node identity:
+**I-08** (silent fallback to the laptop — split brain, a shut switch that doesn't
+shut), **I-17** (any volume with the marker file is adopted as the owner's
+conscience), **I-18** (connectors beside JEFFEREY, yours included, sit outside its
+door). The ask in §3 item 3 — *the marker decision* — is now on the critical path
+for two of them. Details and proposed fixes: the 2026-10-13 entry in
+`BUILD_JOURNAL.md`.
+
 ## 3. What I need from you — in order
 
 1. **Fix §5.1 and §5.2.** Everything that reads a drive inherits them,
