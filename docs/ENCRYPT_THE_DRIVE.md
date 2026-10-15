@@ -63,7 +63,7 @@ way the project could hurt its owner.)*
 > `Backups.backupdb` before looking for anything else.
 >
 > **The premise that justified deferring APFS is gone.** On 09-21 the owner
-> moved the photo folders (`Petting Zoo`, `Uncle Bill`, `Zavitz`) onto the Mac
+> moved the family photo folders onto the Mac
 > and said he no longer wants the Time Machine backup on this drive. So a
 > second copy exists, the drive is nearly empty, and it is about to stop being
 > a backup target. **Decision: erase to APFS (Encrypted) — §2c — rather than
