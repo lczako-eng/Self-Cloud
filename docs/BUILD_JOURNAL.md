@@ -342,5 +342,42 @@ directories there while source was uncommitted. Commit early; work from a durabl
   forgotten passphrase) and restoring onto a new one; the daily routine and
   reminders; dealing with institutions and professionals; abuse by a trusted insider.
 
+## 2026-10-15 — JEFFEREY's stress-test fixes are pushed; what they expect of the drive
+- **Pushed:** JEFFEREY repo, branch `claude/substantiation-discussion-8dmu3c`, commits
+  `0ec43b3..bc4dd17`. They answer all 67 issues the report put on JEFFEREY's side or
+  shared, some in part; the full test runner passes. A further round (an AI never
+  changes what is the owner's: his rules, profile, people, goals and confirmed words)
+  is under way and will be recorded in the stress-test report, not here.
+- **What JEFFEREY now expects of a Self-Cloud drive (I-08, I-17), commit `072cf12`.**
+  Please make the laptop agent's provisioning match it, or say where it should differ:
+  - **The marker** `.selfcloud/selfcloud.json` counts only if it is a JSON object with
+    `"kind": "self-cloud-drive"` and a 16-character lower-case hex `id`, read without
+    following links. Anything else is refused, never adopted or written to.
+  - **Pairing.** A drive is the owner's only once this Mac is paired with its id, at
+    provisioning, by the installer with his yes, or by `python3 connector/home.py pair
+    <drive>`. The pairing lives in `~/.jefferey/drives.json` with the volume's UUID, and
+    the installer pins the id in Claude's config (`SELFCLOUD_DRIVE_ID`). A copy of the
+    drive (same id, different volume UUID) is refused.
+  - **No silent fallback.** With a paired drive away, two at once, or `SELFCLOUD_ROOT`
+    pointing at nothing, every JEFFEREY tool on all three surfaces refuses: "your
+    Self-Cloud drive is not plugged in". Nothing is read, written or logged elsewhere.
+    Keeping the life on the laptop is now the owner's explicit choice.
+  - **The door switch** counts as shut if any known switch exists: on the drive, in
+    `~/.jefferey`, or on any paired drive. Shutting writes all of them; opening removes
+    all of them.
+  - **The namespace is unchanged:** JEFFEREY writes only under `.selfcloud/jefferey/`. It
+    never touches `node.json`, `catalog.db`, `audit.jsonl` or `index.lock`.
+- **Still open on the JEFFEREY side, and waiting on you:**
+  - I-17: a primary/replica role, `node.json` as the shared identity, and a transfer and
+    wipe flow for resale.
+  - I-42: refusing the caretaker key when the drive is not encrypted.
+  - I-18: what your storage door logs, and whether it may sit beside a general
+    filesystem connector.
+- **Unchanged from 10-13:**
+  - The backup verifier and a second verified copy.
+  - The 09-09 dedup-and-separation pipeline.
+  - Exposing your catalog so JEFFEREY's photo walker can retire.
+  - The owner's open decisions B1, B6 and the marker.
+
 ## <next> — Codex
 - (your entry here)
